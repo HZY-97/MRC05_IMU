@@ -20,7 +20,7 @@
 #include <tf2_msgs/msg/tf_message.hpp>
 #include <unistd.h>
 
-#define GYRO_DEV "/dev/ttyS1"
+#define GYRO_DEV "/dev/ttyS4"
 // #define	GYRO_DEV   "/dev/ttyUSB1"
 const unsigned char cali_offset[] = {0xFF, 0x1C, 0, 0, 0, 0, 0xC5, 0xD6};
 const unsigned char cmd_stop[] = {0xFF, 7, 0, 6, 0, 0, 0x41, 0xD5};
@@ -149,6 +149,8 @@ int main(int argc, char **argv) {
               roll = roll * M_PI / 180.0;
               pich = pich * M_PI / 180.0;
               yaw = yaw * M_PI / 180.0;
+
+              imu_data.orientation_covariance[0] = yaw;
 
               // q = tf::createQuaternionMsgFromRollPitchYaw(roll, pich, yaw);
               // imu_data.orientation.w = q.w;
